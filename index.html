@@ -8,7 +8,8 @@
     :root{
       --bg1:#2f0f46;--bg2:#6d28d9;--bg3:#ec4899;--card:#ffffff;--ink:#2d1b3d;--muted:#746a87;
       --line:#eadcf6;--soft:#fbf7ff;--soft2:#fff7fb;--ok:#166534;--bad:#991b1b;--warn:#9a3412;
-      --violet:#7c3aed;--pink:#ec4899;--green:#22c55e;--gold:#f59e0b;--shadow:0 20px 50px rgba(39,8,63,.22)
+      --violet:#7c3aed;--pink:#ec4899;--green:#22c55e;--gold:#f59e0b;--shadow:0 20px 50px rgba(39,8,63,.22);
+      --infoBg:#eef5ff;--infoLine:#bfd6ff;--infoInk:#2563eb;
     }
     *{box-sizing:border-box} html,body{margin:0;padding:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(145deg,var(--bg1),var(--bg2),var(--bg3));color:#fff}
     .wrap{max-width:1320px;margin:0 auto;padding:22px}
@@ -24,14 +25,20 @@
     .unit-list{display:grid;gap:16px;margin-top:18px}.unit{padding:16px}.unit-head{display:flex;justify-content:space-between;gap:16px;align-items:center;background:#fff;border-radius:20px;padding:16px;color:var(--ink);cursor:pointer}.unit.open .unit-body{display:block}.unit-body{display:none;padding-top:14px}
     .title{font-size:24px;font-weight:900}.sub{margin-top:4px;color:var(--muted)}.badge{padding:8px 12px;border-radius:999px;background:#fdf2f8;color:#9d174d;font-size:12px;font-weight:800;white-space:nowrap}
     .skills{display:grid;grid-template-columns:1fr 1fr;gap:16px}.exercise{background:#fff;border-radius:22px;padding:18px;color:var(--ink)}.exercise h3{margin:0 0 8px;font-size:22px}.exercise p{color:var(--muted);line-height:1.5}
-    .sbox{padding:14px;border:1px solid var(--line);border-radius:18px;background:var(--soft);margin:12px 0}.en{font-size:24px;font-weight:900;color:#6d28d9}.phon{margin-top:6px;color:#ec4899;font-weight:800}.trans{margin-top:6px;color:var(--muted)}
+    .sbox{padding:14px;border:1px solid var(--line);border-radius:18px;background:var(--soft);margin:12px 0}.en{font-size:24px;font-weight:900;color:#6d28d9}.phon{margin-top:6px;color:#ec4899;font-weight:800}.trans{margin-top:6px;color:var(--muted);line-height:1.5}
     .tts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.mini{font-size:13px;color:var(--muted)}
     .rep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.rep{padding:14px;border-radius:16px;background:#fff7ed;border:1px solid #fed7aa;text-align:center;color:#9a3412;font-weight:800}.rep.done{background:#dcfce7;border-color:#86efac;color:#166534}
     .feedback{margin-top:10px;padding:12px 14px;border-radius:14px;font-weight:700}.feedback.ok{background:#eefdf3;border:1px solid #bbf7d0;color:var(--ok)}.feedback.bad{background:#fef2f2;border:1px solid #fecaca;color:var(--bad)}.feedback.warn{background:#fff7ed;border:1px solid #fed7aa;color:var(--warn)}
     .checklist{display:grid;gap:8px;margin-top:12px}.check{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--soft2)}.check input{margin-top:3px}
-    .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}.box{padding:12px 14px;border-radius:16px;border:1px solid var(--line);background:var(--soft)}
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}.box{padding:12px 14px;border-radius:16px;border:1px solid var(--line);background:var(--soft);line-height:1.55}
     .score-pill{display:inline-block;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;background:#ede9fe;color:#5b21b6}
     .footer{padding:14px 18px;margin:18px 0 24px;text-align:center;font-size:13px;color:#fff4fd}
+    .explain-box{background:linear-gradient(180deg,#fbf8ff,#fff);border:1px solid var(--line)}
+    .explain-title{font-size:22px;font-weight:900;color:var(--ink);margin:0 0 8px}
+    .explain-text{color:var(--muted);line-height:1.6;margin:0 0 14px}
+    .explain-tip{background:var(--infoBg);border:1px solid var(--infoLine);color:var(--infoInk);border-radius:14px;padding:14px;line-height:1.5;font-weight:600}
+    .explain-steps{display:grid;gap:10px;margin-top:12px}.explain-step{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:12px}.explain-step b{color:var(--ink)}
+    .option-models{display:grid;gap:10px;margin-top:10px}.option-model{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:12px 14px}.option-model b{color:#9a3412}.option-model .phon{margin-top:4px}.option-model .trans{margin-top:4px}
     @media (max-width:1000px){.dashboard,.skills,.compare,.toolbar{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
@@ -92,57 +99,164 @@
 <script>
 const data = [
   {
-    id:'u1',cat:'social',title:'Block 1 · Social media basics',sub:'Frases cortas para arrancar sin miedo.',badge:'Foundation',items:[
-      {en:'Social media can be useful.',phon:'soushal midia kan bi iusuful',es:'Las redes sociales pueden ser útiles.',model:'I think social media can be useful because people learn new things.',transform:'Change useful → dangerous / fun / positive.'},
-      {en:'You should protect your privacy.',phon:'iu shud protekt ior praivasi',es:'Debes proteger tu privacidad.',model:'You should protect your privacy and use a strong password.',transform:'Change should → must / can.'},
-      {en:'People post photos and videos online.',phon:'pipol post foudos and videos onlain',es:'La gente publica fotos y vídeos en internet.',model:'People post photos and videos online to share ideas and moments.',transform:'Change people → influencers / teenagers.'}
+    id:'u1',cat:'social',title:'Block 1 · Social media basics',sub:'Frases cortas para arrancar sin miedo.',badge:'Foundation',
+    explanation:'Aquí trabajamos ideas básicas sobre redes sociales. La alumna no tiene que inventar desde cero: primero copia una estructura corta y luego cambia solo una palabra importante.',
+    tip:'Consejo en español: si la frase dice useful, puede practicar también con dangerous, fun, positive o harmful. Así aprende a decir casi lo mismo con matices distintos.',
+    steps:['Leer y repetir la frase base.','Copiar el modelo completo una vez.','Cambiar una palabra y volver a decirla.'],
+    items:[
+      {en:'Social media can be useful.',phon:'soushal midia kan bi iusuful',es:'Las redes sociales pueden ser útiles.',model:'I think social media can be useful because people learn new things.',transform:'Change useful → dangerous / fun / positive.',options:[
+        {label:'Useful',sentence:'I think social media can be useful because people learn new things.',phon:'ai zink soushal midia kan bi iusuful bikos pipol lern niu zings',es:'Creo que las redes sociales pueden ser útiles porque la gente aprende cosas nuevas.'},
+        {label:'Dangerous',sentence:'I think social media can be dangerous because people share private information.',phon:'ai zink soushal midia kan bi deincheres bikos pipol sher praivet informeishon',es:'Creo que las redes sociales pueden ser peligrosas porque la gente comparte información privada.'},
+        {label:'Fun',sentence:'I think social media can be fun because people watch videos and talk to friends.',phon:'ai zink soushal midia kan bi fan bikos pipol uoch videos and tok tu frends',es:'Creo que las redes sociales pueden ser divertidas porque la gente ve vídeos y habla con amigos.'},
+        {label:'Positive',sentence:'I think social media can be positive because people support each other online.',phon:'ai zink soushal midia kan bi pozitib bikos pipol saport ich ader onlain',es:'Creo que las redes sociales pueden ser positivas porque la gente se apoya en internet.'}
+      ]},
+      {en:'You should protect your privacy.',phon:'iu shud protekt ior praivasi',es:'Debes proteger tu privacidad.',model:'You should protect your privacy and use a strong password.',transform:'Change should → must / can.',options:[
+        {label:'Should',sentence:'You should protect your privacy and use a strong password.',phon:'iu shud protekt ior praivasi and ius a strong pasuord',es:'Deberías proteger tu privacidad y usar una contraseña fuerte.'},
+        {label:'Must',sentence:'You must protect your privacy if you want to be safe online.',phon:'iu mast protekt ior praivasi if iu uant tu bi seif onlain',es:'Debes proteger tu privacidad si quieres estar segura en internet.'},
+        {label:'Can',sentence:'You can protect your privacy by using a strong password.',phon:'iu kan protekt ior praivasi bai iusing a strong pasuord',es:'Puedes proteger tu privacidad usando una contraseña fuerte.'}
+      ]},
+      {en:'People post photos and videos online.',phon:'pipol post foudos and videos onlain',es:'La gente publica fotos y vídeos en internet.',model:'People post photos and videos online to share ideas and moments.',transform:'Change people → influencers / teenagers.',options:[
+        {label:'People',sentence:'People post photos and videos online to share ideas and moments.',phon:'pipol post foudos and videos onlain tu sher aideas and mouments',es:'La gente publica fotos y vídeos en internet para compartir ideas y momentos.'},
+        {label:'Influencers',sentence:'Influencers post photos and videos online to get attention and followers.',phon:'influenserz post foudos and videos onlain tu get atenshon and foloers',es:'Los influencers publican fotos y vídeos en internet para conseguir atención y seguidores.'},
+        {label:'Teenagers',sentence:'Teenagers post photos and videos online to talk to friends and have fun.',phon:'tineiyers post foudos and videos onlain tu tok tu frends and jav fan',es:'Los adolescentes publican fotos y vídeos en internet para hablar con amigos y divertirse.'}
+      ]}
     ]
   },
   {
-    id:'u2',cat:'social',title:'Block 2 · Problems online',sub:'Hablar de problemas con frases seguras.',badge:'Problem solving',items:[
-      {en:'Someone wrote rude comments on my page.',phon:'saman rout rud koments on mai peich',es:'Alguien escribió comentarios groseros en mi página.',model:'Someone wrote rude comments on my page, so I blocked that person.',transform:'Change rude comments → nasty messages / private photos.'},
-      {en:'A video can go viral very quickly.',phon:'a video kan gou vairal veri kuikli',es:'Un vídeo puede hacerse viral muy rápido.',model:'A video can go viral very quickly if many people share it.',transform:'Change can → might.'},
-      {en:'You must not share your password.',phon:'iu mast not sher ior pasuord',es:'No debes compartir tu contraseña.',model:'You must not share your password because it is dangerous.',transform:'Change password → personal information.'}
+    id:'u2',cat:'social',title:'Block 2 · Problems online',sub:'Hablar de problemas con frases seguras.',badge:'Problem solving',
+    explanation:'Aquí la alumna aprende a hablar de problemas reales: comentarios desagradables, información privada o vídeos virales. El foco no es solo el vocabulario, sino saber explicar qué pasó y qué hizo después.',
+    tip:'Consejo en español: muy útil añadir una segunda parte con so, because o and then. Así la frase suena más completa y madura.',
+    steps:['Nombrar el problema.','Añadir la reacción o consecuencia.','Repetir sin mirar.'],
+    items:[
+      {en:'Someone wrote rude comments on my page.',phon:'saman rout rud koments on mai peich',es:'Alguien escribió comentarios groseros en mi página.',model:'Someone wrote rude comments on my page, so I blocked that person.',transform:'Change rude comments → nasty messages / private photos.',options:[
+        {label:'Rude comments',sentence:'Someone wrote rude comments on my page, so I blocked that person.',phon:'saman rout rud koments on mai peich, sou ai blokt dat person',es:'Alguien escribió comentarios groseros en mi página, así que bloqueé a esa persona.'},
+        {label:'Nasty messages',sentence:'Someone sent nasty messages to me, so I stopped answering.',phon:'saman sent nasti mesichis tu mi, sou ai stopt ansuering',es:'Alguien me mandó mensajes desagradables, así que dejé de responder.'},
+        {label:'Private photos',sentence:'Someone shared private photos, so I felt upset and asked for help.',phon:'saman sherd praivet foudos, sou ai felt apset and askt for jelp',es:'Alguien compartió fotos privadas, así que me sentí mal y pedí ayuda.'}
+      ]},
+      {en:'A video can go viral very quickly.',phon:'a video kan gou vairal veri kuikli',es:'Un vídeo puede hacerse viral muy rápido.',model:'A video can go viral very quickly if many people share it.',transform:'Change can → might.',options:[
+        {label:'Can',sentence:'A video can go viral very quickly if many people share it.',phon:'a video kan gou vairal veri kuikli if meni pipol sher it',es:'Un vídeo puede hacerse viral muy rápido si mucha gente lo comparte.'},
+        {label:'Might',sentence:'A video might go viral if it is funny or surprising.',phon:'a video mait gou vairal if it is fani or sapraisin',es:'Un vídeo podría hacerse viral si es divertido o sorprendente.'}
+      ]},
+      {en:'You must not share your password.',phon:'iu mast not sher ior pasuord',es:'No debes compartir tu contraseña.',model:'You must not share your password because it is dangerous.',transform:'Change password → personal information.',options:[
+        {label:'Password',sentence:'You must not share your password because it is dangerous.',phon:'iu mast not sher ior pasuord bikos it is deincheres',es:'No debes compartir tu contraseña porque es peligroso.'},
+        {label:'Personal information',sentence:'You must not share personal information with strangers online.',phon:'iu mast not sher personal informeishon uiz streinyers onlain',es:'No debes compartir información personal con desconocidos en internet.'}
+      ]}
     ]
   },
   {
-    id:'u3',cat:'influencers',title:'Block 3 · Influencers and opinions',sub:'Responder con estructura a preguntas del examen.',badge:'Opinion',items:[
-      {en:'I prefer positive influencers.',phon:'ai prifer pozitib influensers',es:'Prefiero influencers positivos.',model:'I prefer positive influencers because they help and inspire people.',transform:'Change positive → funny / educational / dangerous.'},
-      {en:'A good influencer should help others.',phon:'a gud influenser shud jelp aders',es:'Un buen influencer debería ayudar a los demás.',model:'A good influencer should help others and share useful ideas.',transform:'Change should → must / can.'},
-      {en:'Some influencers only want attention.',phon:'sam influensers ounli uant atenshon',es:'Algunos influencers solo quieren atención.',model:'Some influencers only want attention, so I do not follow them.',transform:'Change attention → money / popularity.'}
+    id:'u3',cat:'influencers',title:'Block 3 · Influencers and opinions',sub:'Responder con estructura a preguntas del examen.',badge:'Opinion',
+    explanation:'Este bloque sirve para contestar preguntas de opinión. No interesa responder con una palabra; interesa dar una opinión clara y una razón sencilla.',
+    tip:'Consejo en español: usa siempre la estructura I think... because... o In my opinion... because... para no bloquearte.',
+    steps:['Dar una opinión clara.','Añadir because con una razón.','Cambiar un adjetivo y repetir.'],
+    items:[
+      {en:'I prefer positive influencers.',phon:'ai prifer pozitib influensers',es:'Prefiero influencers positivos.',model:'I prefer positive influencers because they help and inspire people.',transform:'Change positive → funny / educational / dangerous.',options:[
+        {label:'Positive',sentence:'I prefer positive influencers because they help and inspire people.',phon:'ai prifer pozitib influensers bikos dei jelp and inspair pipol',es:'Prefiero influencers positivos porque ayudan e inspiran a la gente.'},
+        {label:'Funny',sentence:'I prefer funny influencers because they make people laugh.',phon:'ai prifer fani influensers bikos dei meik pipol laf',es:'Prefiero influencers divertidos porque hacen reír a la gente.'},
+        {label:'Educational',sentence:'I prefer educational influencers because they teach useful things.',phon:'ai prifer edyukeishonal influensers bikos dei tich iusuful zings',es:'Prefiero influencers educativos porque enseñan cosas útiles.'},
+        {label:'Dangerous',sentence:'I do not like dangerous influencers because they promote bad ideas.',phon:'ai du not laik deincheres influensers bikos dei proumout bad aideas',es:'No me gustan los influencers peligrosos porque promueven malas ideas.'}
+      ]},
+      {en:'A good influencer should help others.',phon:'a gud influenser shud jelp aders',es:'Un buen influencer debería ayudar a los demás.',model:'A good influencer should help others and share useful ideas.',transform:'Change should → must / can.',options:[
+        {label:'Should',sentence:'A good influencer should help others and share useful ideas.',phon:'a gud influenser shud jelp aders and sher iusuful aideas',es:'Un buen influencer debería ayudar a los demás y compartir ideas útiles.'},
+        {label:'Must',sentence:'A good influencer must be responsible online.',phon:'a gud influenser mast bi risponsibol onlain',es:'Un buen influencer debe ser responsable en internet.'},
+        {label:'Can',sentence:'A good influencer can change people’s lives in a positive way.',phon:'a gud influenser kan cheinch pipols laivs in a pozitib uei',es:'Un buen influencer puede cambiar la vida de la gente de forma positiva.'}
+      ]},
+      {en:'Some influencers only want attention.',phon:'sam influensers ounli uant atenshon',es:'Algunos influencers solo quieren atención.',model:'Some influencers only want attention, so I do not follow them.',transform:'Change attention → money / popularity.',options:[
+        {label:'Attention',sentence:'Some influencers only want attention, so I do not follow them.',phon:'sam influensers ounli uant atenshon, sou ai du not folo dem',es:'Algunos influencers solo quieren atención, así que no los sigo.'},
+        {label:'Money',sentence:'Some influencers only want money, so they promote too many products.',phon:'sam influensers ounli uant mani, sou dei proumout tu meni products',es:'Algunos influencers solo quieren dinero, así que promocionan demasiados productos.'},
+        {label:'Popularity',sentence:'Some influencers only want popularity, so they do silly things online.',phon:'sam influensers ounli uant popiulariti, sou dei du sili zings onlain',es:'Algunos influencers solo quieren popularidad, así que hacen tonterías en internet.'}
+      ]}
     ]
   },
   {
-    id:'u4',cat:'challenges',title:'Block 4 · Challenges',sub:'Frases para hablar de dificultades y valentía.',badge:'Growth',items:[
-      {en:'Facing challenges can make you stronger.',phon:'feising chalenyis kan meik iu stronger',es:'Afrontar retos puede hacerte más fuerte.',model:'Facing challenges can make you stronger because you learn to cope with problems.',transform:'Change stronger → braver / more confident.'},
-      {en:'People sometimes need support.',phon:'pipol samtaims nid saport',es:'La gente a veces necesita apoyo.',model:'People sometimes need support when they feel anxious or helpless.',transform:'Add because / when.'},
-      {en:'You should never give up.',phon:'iu shud never guiv ap',es:'Nunca deberías rendirte.',model:'You should never give up if you want to reach your goals.',transform:'Change goals → dreams / objectives.'}
+    id:'u4',cat:'challenges',title:'Block 4 · Challenges',sub:'Frases para hablar de dificultades y valentía.',badge:'Growth',
+    explanation:'Aquí la alumna aprende a hablar de esfuerzo, apoyo, ansiedad y superación. Son frases muy útiles para oral porque permiten dar opinión y hablar de emociones.',
+    tip:'Consejo en español: si una frase parece muy corta, añade because o when. Eso hace que suene mucho mejor.',
+    steps:['Decir la idea principal.','Añadir una razón o situación.','Repetir despacio y sin mirar.'],
+    items:[
+      {en:'Facing challenges can make you stronger.',phon:'feising chalenyis kan meik iu stronger',es:'Afrontar retos puede hacerte más fuerte.',model:'Facing challenges can make you stronger because you learn to cope with problems.',transform:'Change stronger → braver / more confident.',options:[
+        {label:'Stronger',sentence:'Facing challenges can make you stronger because you learn to cope with problems.',phon:'feising chalenyis kan meik iu stronger bikos iu lern tu koup uiz problems',es:'Afrontar retos puede hacerte más fuerte porque aprendes a afrontar problemas.'},
+        {label:'Braver',sentence:'Facing challenges can make you braver in difficult situations.',phon:'feising chalenyis kan meik iu breiver in dificolt sitchueishons',es:'Afrontar retos puede hacerte más valiente en situaciones difíciles.'},
+        {label:'More confident',sentence:'Facing challenges can make you more confident in yourself.',phon:'feising chalenyis kan meik iu mor confident in iorself',es:'Afrontar retos puede hacerte tener más confianza en ti misma.'}
+      ]},
+      {en:'People sometimes need support.',phon:'pipol samtaims nid saport',es:'La gente a veces necesita apoyo.',model:'People sometimes need support when they feel anxious or helpless.',transform:'Add because / when.',options:[
+        {label:'When',sentence:'People sometimes need support when they feel anxious or helpless.',phon:'pipol samtaims nid saport uen dei fil angsios or jelples',es:'La gente a veces necesita apoyo cuando se siente ansiosa o indefensa.'},
+        {label:'Because',sentence:'People sometimes need support because life can be difficult.',phon:'pipol samtaims nid saport bikos laif kan bi dificolt',es:'La gente a veces necesita apoyo porque la vida puede ser difícil.'}
+      ]},
+      {en:'You should never give up.',phon:'iu shud never guiv ap',es:'Nunca deberías rendirte.',model:'You should never give up if you want to reach your goals.',transform:'Change goals → dreams / objectives.',options:[
+        {label:'Goals',sentence:'You should never give up if you want to reach your goals.',phon:'iu shud never guiv ap if iu uant tu rich ior gouls',es:'Nunca deberías rendirte si quieres alcanzar tus metas.'},
+        {label:'Dreams',sentence:'You should never give up if you want to achieve your dreams.',phon:'iu shud never guiv ap if iu uant tu achiv ior drims',es:'Nunca deberías rendirte si quieres lograr tus sueños.'},
+        {label:'Objectives',sentence:'You should never give up if you want to complete your objectives.',phon:'iu shud never guiv ap if iu uant tu kompleit ior obyectivs',es:'Nunca deberías rendirte si quieres completar tus objetivos.'}
+      ]}
     ]
   },
   {
-    id:'u5',cat:'rolemodels',title:'Block 5 · Role models',sub:'Decir quién inspira y por qué.',badge:'Inspiration',items:[
-      {en:'My role model is Marie Curie.',phon:'mai rol model is marí kiuri',es:'Mi modelo a seguir es Marie Curie.',model:'My role model is Marie Curie because she changed science and helped the world.',transform:'Change Marie Curie → Martin Luther King / Lucy Edwards.'},
-      {en:'She worked hard and inspired many people.',phon:'shi uorkt jard and inspaird meni pipol',es:'Trabajó duro e inspiró a mucha gente.',model:'She worked hard and inspired many people through her achievements.',transform:'Change she → he.'},
-      {en:'A role model can change the world.',phon:'a rol model kan cheinch de uorld',es:'Un modelo a seguir puede cambiar el mundo.',model:'A role model can change the world by inspiring other people to act.',transform:'Change can → might / should.'}
+    id:'u5',cat:'rolemodels',title:'Block 5 · Role models',sub:'Decir quién inspira y por qué.',badge:'Inspiration',
+    explanation:'En este bloque la alumna puede hablar de personas admirables. La clave es dar el nombre, una razón y un pequeño efecto o influencia.',
+    tip:'Consejo en español: usa siempre because para explicar por qué admiras a esa persona. Eso da seguridad y estructura.',
+    steps:['Nombrar a la persona.','Decir por qué la admiras.','Añadir cómo influyó en otros.'],
+    items:[
+      {en:'My role model is Marie Curie.',phon:'mai rol model is marí kiuri',es:'Mi modelo a seguir es Marie Curie.',model:'My role model is Marie Curie because she changed science and helped the world.',transform:'Change Marie Curie → Martin Luther King / Lucy Edwards.',options:[
+        {label:'Marie Curie',sentence:'My role model is Marie Curie because she changed science and helped the world.',phon:'mai rol model is marí kiuri bikos shi cheincht saiens and jelpt de uorld',es:'Mi modelo a seguir es Marie Curie porque cambió la ciencia y ayudó al mundo.'},
+        {label:'Martin Luther King',sentence:'My role model is Martin Luther King because he fought for equality.',phon:'mai rol model is martin luter king bikos ji fot for ikuali-ti',es:'Mi modelo a seguir es Martin Luther King porque luchó por la igualdad.'},
+        {label:'Lucy Edwards',sentence:'My role model is Lucy Edwards because she inspires people every day.',phon:'mai rol model is lusi eduards bikos shi inspairs pipol evri dei',es:'Mi modelo a seguir es Lucy Edwards porque inspira a la gente cada día.'}
+      ]},
+      {en:'She worked hard and inspired many people.',phon:'shi uorkt jard and inspaird meni pipol',es:'Trabajó duro e inspiró a mucha gente.',model:'She worked hard and inspired many people through her achievements.',transform:'Change she → he.',options:[
+        {label:'She',sentence:'She worked hard and inspired many people through her achievements.',phon:'shi uorkt jard and inspaird meni pipol zru jer achivments',es:'Trabajó duro e inspiró a mucha gente a través de sus logros.'},
+        {label:'He',sentence:'He worked hard and inspired many people through his actions.',phon:'ji uorkt jard and inspaird meni pipol zru jis akshons',es:'Trabajó duro e inspiró a mucha gente a través de sus acciones.'}
+      ]},
+      {en:'A role model can change the world.',phon:'a rol model kan cheinch de uorld',es:'Un modelo a seguir puede cambiar el mundo.',model:'A role model can change the world by inspiring other people to act.',transform:'Change can → might / should.',options:[
+        {label:'Can',sentence:'A role model can change the world by inspiring other people to act.',phon:'a rol model kan cheinch de uorld bai inspairing ader pipol tu akt',es:'Un modelo a seguir puede cambiar el mundo inspirando a otras personas a actuar.'},
+        {label:'Might',sentence:'A role model might change the world if many people follow that example.',phon:'a rol model mait cheinch de uorld if meni pipol folo dat igzampol',es:'Un modelo a seguir podría cambiar el mundo si mucha gente sigue ese ejemplo.'},
+        {label:'Should',sentence:'A role model should change the world in a positive way.',phon:'a rol model shud cheinch de uorld in a pozitib uei',es:'Un modelo a seguir debería cambiar el mundo de forma positiva.'}
+      ]}
     ]
   },
   {
-    id:'u6',cat:'biography',title:'Block 6 · Biography speaking',sub:'Mini biografías orales con estructura fija.',badge:'Biography',items:[
-      {en:'She was born in Poland in 1867.',phon:'shi uoz born in poland in eitin siksdi seben',es:'Nació en Polonia en 1867.',model:'She was born in Poland in 1867 and later moved to France.',transform:'Change Poland → the USA / London.'},
-      {en:'Her major achievement was discovering radium.',phon:'jer meiyor achivment uoz diskaberin reikdiom',es:'Su logro principal fue descubrir el radio.',model:'Her major achievement was discovering radium and polonium.',transform:'Change achievement → influence.'},
-      {en:'As a result, she became famous.',phon:'as a rizalt shi bikem feimus',es:'Como resultado, se hizo famosa.',model:'As a result, she became famous and influential.',transform:'Change famous → respected / important.'}
+    id:'u6',cat:'biography',title:'Block 6 · Biography speaking',sub:'Mini biografías orales con estructura fija.',badge:'Biography',
+    explanation:'Aquí la alumna practica biografías cortas. Lo importante es seguir un orden: nacimiento, logro principal, influencia final. Eso da muchísima seguridad.',
+    tip:'Consejo en español: si no sabe qué añadir, usa and later..., as a result... o because.... Es mejor una biografía simple y clara que una complicada y confusa.',
+    steps:['Decir dónde y cuándo nació.','Nombrar un logro importante.','Añadir la consecuencia o influencia.'],
+    items:[
+      {en:'She was born in Poland in 1867.',phon:'shi uoz born in poland in eitin siksdi seben',es:'Nació en Polonia en 1867.',model:'She was born in Poland in 1867 and later moved to France.',transform:'Change Poland → the USA / London.',options:[
+        {label:'Poland',sentence:'She was born in Poland in 1867 and later moved to France.',phon:'shi uoz born in poland in eitin siksdi seben and leiter muvd tu frans',es:'Nació en Polonia en 1867 y más tarde se trasladó a Francia.'},
+        {label:'The USA',sentence:'He was born in the USA and later became an important leader.',phon:'ji uoz born in de iuesei and leiter bikem an important lider',es:'Nació en Estados Unidos y más tarde se convirtió en un líder importante.'},
+        {label:'London',sentence:'She was born in London and later became famous.',phon:'shi uoz born in landon and leiter bikem feimus',es:'Nació en Londres y más tarde se hizo famosa.'}
+      ]},
+      {en:'Her major achievement was discovering radium.',phon:'jer meiyor achivment uoz diskaberin reikdiom',es:'Su logro principal fue descubrir el radio.',model:'Her major achievement was discovering radium and polonium.',transform:'Change achievement → influence.',options:[
+        {label:'Achievement',sentence:'Her major achievement was discovering radium and polonium.',phon:'jer meiyor achivment uoz diskaberin reikdiom and polonium',es:'Su logro principal fue descubrir el radio y el polonio.'},
+        {label:'Influence',sentence:'Her influence was enormous because she changed science.',phon:'jer influens uoz inormas bikos shi cheincht saiens',es:'Su influencia fue enorme porque cambió la ciencia.'}
+      ]},
+      {en:'As a result, she became famous.',phon:'as a rizalt shi bikem feimus',es:'Como resultado, se hizo famosa.',model:'As a result, she became famous and influential.',transform:'Change famous → respected / important.',options:[
+        {label:'Famous',sentence:'As a result, she became famous and influential.',phon:'as a rizalt, shi bikem feimus and influenshal',es:'Como resultado, se hizo famosa e influyente.'},
+        {label:'Respected',sentence:'As a result, she became respected all over the world.',phon:'as a rizalt, shi bikem rispektid ol over de uorld',es:'Como resultado, pasó a ser respetada en todo el mundo.'},
+        {label:'Important',sentence:'As a result, she became an important historical figure.',phon:'as a rizalt, shi bikem an important istorikal figur',es:'Como resultado, se convirtió en una figura histórica importante.'}
+      ]}
     ]
   },
   {
-    id:'u7',cat:'exam',title:'Block 7 · Exam answers',sub:'Respuestas listas para sacar nota en speaking.',badge:'Exam',items:[
-      {en:'I think social media can be positive if we use it well.',phon:'ai zink soushal midia kan bi pozitib if ui ius it uel',es:'Creo que las redes sociales pueden ser positivas si las usamos bien.',model:'I think social media can be positive if we use it well and respect other people.',transform:'Change positive → harmful.'},
-      {en:'In my opinion, a good role model is kind and hard-working.',phon:'in mai opinyon a gud rol model is kaind and jard uorking',es:'En mi opinión, un buen modelo a seguir es amable y trabajador.',model:'In my opinion, a good role model is kind, hard-working and honest.',transform:'Add one adjective.'},
-      {en:'I admire this person because they never gave up.',phon:'ai admaier dis person bikos dei never geiv ap',es:'Admiro a esta persona porque nunca se rindió.',model:'I admire this person because they never gave up and helped others.',transform:'Change admire → follow / respect.'}
+    id:'u7',cat:'exam',title:'Block 7 · Exam answers',sub:'Respuestas listas para sacar nota en speaking.',badge:'Exam',
+    explanation:'Estas respuestas están pensadas para sonar bien en examen. No hace falta improvisar todo: una estructura buena repetida varias veces puede darle mucha seguridad a la alumna.',
+    tip:'Consejo en español: memoriza una respuesta base y luego cambia solo una o dos palabras. Así parece flexible, no robotizada.',
+    steps:['Aprender una respuesta base.','Cambiar un adjetivo o una razón.','Decirla con seguridad y sin mirar.'],
+    items:[
+      {en:'I think social media can be positive if we use it well.',phon:'ai zink soushal midia kan bi pozitib if ui ius it uel',es:'Creo que las redes sociales pueden ser positivas si las usamos bien.',model:'I think social media can be positive if we use it well and respect other people.',transform:'Change positive → harmful.',options:[
+        {label:'Positive',sentence:'I think social media can be positive if we use it well and respect other people.',phon:'ai zink soushal midia kan bi pozitib if ui ius it uel and rispekt ader pipol',es:'Creo que las redes sociales pueden ser positivas si las usamos bien y respetamos a los demás.'},
+        {label:'Harmful',sentence:'I think social media can be harmful if people use it badly.',phon:'ai zink soushal midia kan bi jarmful if pipol ius it badly',es:'Creo que las redes sociales pueden ser perjudiciales si la gente las usa mal.'}
+      ]},
+      {en:'In my opinion, a good role model is kind and hard-working.',phon:'in mai opinyon a gud rol model is kaind and jard uorking',es:'En mi opinión, un buen modelo a seguir es amable y trabajador.',model:'In my opinion, a good role model is kind, hard-working and honest.',transform:'Add one adjective.',options:[
+        {label:'Honest',sentence:'In my opinion, a good role model is kind, hard-working and honest.',phon:'in mai opinyon a gud rol model is kaind, jard uorking and onest',es:'En mi opinión, un buen modelo a seguir es amable, trabajador y honesto.'},
+        {label:'Brave',sentence:'In my opinion, a good role model is kind, brave and responsible.',phon:'in mai opinyon a gud rol model is kaind, breiv and risponsibol',es:'En mi opinión, un buen modelo a seguir es amable, valiente y responsable.'}
+      ]},
+      {en:'I admire this person because they never gave up.',phon:'ai admaier dis person bikos dei never geiv ap',es:'Admiro a esta persona porque nunca se rindió.',model:'I admire this person because they never gave up and helped others.',transform:'Change admire → follow / respect.',options:[
+        {label:'Admire',sentence:'I admire this person because they never gave up and helped others.',phon:'ai admaier dis person bikos dei never geiv ap and jelpt aders',es:'Admiro a esta persona porque nunca se rindió y ayudó a los demás.'},
+        {label:'Follow',sentence:'I follow this person because they share inspiring ideas.',phon:'ai folo dis person bikos dei sher inspairing aideas',es:'Sigo a esta persona porque comparte ideas inspiradoras.'},
+        {label:'Respect',sentence:'I respect this person because they worked hard for their goals.',phon:'ai rispekt dis person bikos dei uorkt jard for der gouls',es:'Respeto a esta persona porque trabajó duro por sus metas.'}
+      ]}
     ]
   }
 ];
 
-const storeKey='tema5_speaking_guiado_pro_v1';
+const storeKey='tema5_speaking_guiado_pro_explicado_v1';
 let progress=JSON.parse(localStorage.getItem(storeKey)||'{"reps":{},"mastered":{},"blocks":{}}');
 if(!progress.reps) progress.reps={}; if(!progress.mastered) progress.mastered={}; if(!progress.blocks) progress.blocks={};
 
@@ -158,6 +272,18 @@ function render(){
     article.className='unit'; article.dataset.cat=unit.cat; article.dataset.search=(unit.title+' '+unit.sub+' '+unit.items.map(i=>i.en+' '+i.es+' '+i.model).join(' ')).toLowerCase();
     article.innerHTML=`<div class="unit-head"><div><div class="title">${unit.title}</div><div class="sub">${unit.sub}</div></div><div class="badge">${unit.badge}</div></div><div class="unit-body"><div class="skills"></div></div>`;
     const skills=article.querySelector('.skills');
+
+    const explain=document.createElement('div');
+    explain.className='exercise explain-box';
+    explain.innerHTML=`
+      <h3 class="explain-title">Quick explanation</h3>
+      <p class="explain-text">${unit.explanation}</p>
+      <div class="explain-tip">${unit.tip}</div>
+      <div class="explain-steps">
+        ${unit.steps.map((s,i)=>`<div class="explain-step"><b>Step ${i+1}:</b> ${s}</div>`).join('')}
+      </div>`;
+    skills.appendChild(explain);
+
     unit.items.forEach((it,idx)=>{
       const key=unit.id+'_'+idx;
       const reps=progress.reps[key]||0;
@@ -191,6 +317,16 @@ function render(){
             <p><b>Transform it</b></p>
             <div class="box">${it.transform}</div>
           </div>
+        </div>
+        <div class="option-models">
+          <p style="margin:12px 0 0"><b>Models for different options</b></p>
+          ${it.options.map(op=>`
+            <div class="option-model">
+              <b>${op.label}</b><br>
+              ${op.sentence}
+              <div class="phon">${op.phon}</div>
+              <div class="trans">${op.es}</div>
+            </div>`).join('')}
         </div>
         <div class="sbox">
           <p><b>Say it alone</b></p>
